@@ -2,26 +2,28 @@ package org.acme.crawler.service;
 
 import org.acme.crawler.model.PageResult;
 
-/**
- * Service responsible for coordinating the crawling process.
- */
+import javax.swing.table.DefaultTableModel;
+
 public class CrawlerService {
 
     private final FileWriterService fileWriterService;
+    private final DefaultTableModel tableModel;
 
-    public CrawlerService() {
+    public CrawlerService(DefaultTableModel tableModel) {
         this.fileWriterService = new FileWriterService();
+        this.tableModel = tableModel;
     }
 
-    /**
-     * Process a crawled page result.
-     *
-     * @param pageResult the result containing URL and title
-     */
-    public void processResult(PageResult pageResult) {
-        if (pageResult != null) {
-            // Save result using the instance
-            fileWriterService.saveResult(pageResult);
+    public void startCrawl(String[] urls) {
+        for (String url : urls) {
+            // Aqui você implementaria a lógica real de crawling
+            PageResult result = new PageResult(url, "Example Title");
+
+            fileWriterService.saveResult(result);
+
+            if (tableModel != null) {
+                tableModel.addRow(new Object[]{result.getUrl(), result.getTitle()});
+            }
         }
     }
 }
