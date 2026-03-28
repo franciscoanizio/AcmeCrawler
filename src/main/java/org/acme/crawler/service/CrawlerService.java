@@ -1,46 +1,29 @@
 package org.acme.crawler.service;
 
-import javax.swing.table.DefaultTableModel;
-import java.net.http.*;
-import java.net.URI;
-import java.util.concurrent.Executors;
 import org.acme.crawler.model.PageResult;
-import org.acme.crawler.util.HttpClientFactory;
 
+/**
+ * Service responsible for coordinating the crawling process.
+ */
 public class CrawlerService {
-    private final DefaultTableModel tableModel;
 
-    public CrawlerService(DefaultTableModel tableModel) {
-        this.tableModel = tableModel;
+    private final FileWriterService fileWriterService;
+
+    public CrawlerService() {
+        this.fileWriterService = new FileWriterService();
     }
 
-    public void startCrawl(String[] urls) {
-        HttpClient client = HttpClientFactory.create();
-
-        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            for (String url : urls) {
-                executor.submit(() -> {
-                    try {
-                        HttpRequest request = HttpRequest.newBuilder()
-                                .uri(URI.create(url.trim()))
-                                .build();
-                        HttpResponse<String> response = client.send(request,
-                                HttpResponse.BodyHandlers.ofString());
-
-                        String title = ParserService.parseTitle(response.body());
-                        PageResult result = new PageResult(url, title);
-
-                        javax.swing.SwingUtilities.invokeLater(() ->
-                                tableModel.addRow(new Object[]{result.getUrl(), result.getTitle()})
-                        );
-
-                        FileWriterService.saveResult(result);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
+    /**
+     * Process a crawled page result.
+     *
+     * @param pageResult the result containing URL and title
+     */
+    public void processResult(PageResult pageResult) {
+        if (pageResult != null) {
+            // Save result using the instance
+            fileWriterService.saveResult(pageResult);
         }
     }
+
+    // Other crawler logic (fetching, parsing, etc.) would go here
 }
