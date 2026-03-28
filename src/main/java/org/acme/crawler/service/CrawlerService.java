@@ -24,6 +24,4 @@ public class CrawlerService {
             fileWriterService.saveResult(pageResult);
         }
     }
-
-    // Other crawler logic (fetching, parsing, etc.) would go here
 }
