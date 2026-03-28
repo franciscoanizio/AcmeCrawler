@@ -1,0 +1,21 @@
+ -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://www.google.com -> Example Title
+http://google.com -> Error: HTTP 301
+http://www.google.com -> Google
+http://www.google.com -> Google
+http://www.ciandt.com.br -> Error: HTTP 403
